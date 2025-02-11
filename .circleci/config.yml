@@ -16,7 +16,8 @@ jobs:
       - run:
           name: Extract Workspace and Scheme
           command: |
-            # xcodebuild -list -json
+            xcodebuild -list -json
+
             # Check if xcworkspace exists
             if ls *.xcworkspace 1> /dev/null 2>&1; then
               WORKSPACE_NAME=$(ls | grep xcworkspace | head -n 1)
@@ -36,7 +37,7 @@ jobs:
               BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep PRODUCT_BUNDLE_IDENTIFIER | awk '{print $3}')
             fi
             echo "export BUNDLE_ID=$BUNDLE_ID" >> $BASH_ENV
-            source $BASH_ENV     
+            source $BASH_ENV
 
       - run:
           name: 키체인 설정
