@@ -34,9 +34,27 @@ jobs:
 
             # Extract Bundle ID and properly escape it
             if [ ! -z "$WORKSPACE_NAME" ]; then
-              BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
+              echo "DEBUG: Using workspace $WORKSPACE_NAME" >&2
+              RAW_SETTINGS=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings)
+              echo "DEBUG: Raw build settings:" >&2
+              echo "$RAW_SETTINGS" >&2
+              
+              BUNDLE_LINE=$(echo "$RAW_SETTINGS" | grep "PRODUCT_BUNDLE_IDENTIFIER")
+              echo "DEBUG: Bundle line found: $BUNDLE_LINE" >&2
+              
+              BUNDLE_ID=$(echo "$BUNDLE_LINE" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
+              echo "DEBUG: Extracted Bundle ID: $BUNDLE_ID" >&2
             else
-              BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
+              echo "DEBUG: Using project $PROJECT_NAME" >&2
+              RAW_SETTINGS=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings)
+              echo "DEBUG: Raw build settings:" >&2
+              echo "$RAW_SETTINGS" >&2
+              
+              BUNDLE_LINE=$(echo "$RAW_SETTINGS" | grep "PRODUCT_BUNDLE_IDENTIFIER")
+              echo "DEBUG: Bundle line found: $BUNDLE_LINE" >&2
+              
+              BUNDLE_ID=$(echo "$BUNDLE_LINE" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
+              echo "DEBUG: Extracted Bundle ID: $BUNDLE_ID" >&2
             fi
 
             if [ -z "$BUNDLE_ID" ]; then
