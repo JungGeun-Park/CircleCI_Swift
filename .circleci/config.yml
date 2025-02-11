@@ -5,7 +5,7 @@ jobs:
     macos:
       xcode: 16.1.0
     environment:
-      CERTIFICATE_PASSWORD: ""
+      CERTIFICATE_PASSWORD: "123456"
     steps:
       - checkout
 
