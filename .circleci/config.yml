@@ -44,7 +44,7 @@ jobs:
       - run:
           name: 프로비저닝 프로파일 설치
           command: |
-            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             cp ./profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
       
       - run:
