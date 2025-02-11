@@ -62,7 +62,7 @@ jobs:
       - run:
           name: Generate exportOptions.plist
           command: |
-            cat > exportOptions.plist \<< EOL
+            cat > ./exportOptions.plist \<< EOL
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
             <plist version="1.0">
@@ -87,6 +87,7 @@ jobs:
             </dict>
             </plist>
             EOL
+            cat ./exportOptions.plist
 
       - run:
           name: 빌드
@@ -117,7 +118,7 @@ jobs:
             xcodebuild \
               -exportArchive \
               -archivePath "${SCHEME_NAME}.xcarchive" \
-              -exportOptionsPlist exportOptions.plist \
+              -exportOptionsPlist ./exportOptions.plist \
               -exportPath ./artifacts
 
       - run:
