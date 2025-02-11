@@ -540,7 +540,7 @@ def get_accountID_hash_from_license_file( path )
 	if header == magic then
 		license.read( 3 )
 		$sdk_version = license.read( 48 ).gsub( /\000/, '' )
-		#puts " ===> version : " + $sdk_version
+		puts " ===> version : " + $sdk_version
 		license.read( 8 )
 		# account ID hash 추출
 		accountIDhash = license.read( 32 ).unpack( 'c*' )
