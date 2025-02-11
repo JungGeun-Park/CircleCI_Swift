@@ -30,13 +30,13 @@ jobs:
             fi
             echo "export SCHEME_NAME=$SCHEME_NAME" >> $BASH_ENV
             
-            # Extract Bundle ID
+            # Extract Bundle ID and properly escape it
             if [ ! -z "$WORKSPACE_NAME" ]; then
               BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep PRODUCT_BUNDLE_IDENTIFIER | awk '{print $3}')
             else
               BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep PRODUCT_BUNDLE_IDENTIFIER | awk '{print $3}')
             fi
-            echo "export BUNDLE_ID=$BUNDLE_ID" >> $BASH_ENV
+            echo "BUNDLE_ID=\"$BUNDLE_ID\"" >> $BASH_ENV
             source $BASH_ENV
 
       - run:
@@ -96,6 +96,7 @@ jobs:
                 -workspace "$WORKSPACE_NAME" \
                 -scheme "$SCHEME_NAME" \
                 -configuration Release \
+                -destination 'generic/platform=iOS' \
                 -allowProvisioningUpdates \
                 -archivePath "${SCHEME_NAME}.xcarchive" \
                 archive
@@ -104,6 +105,7 @@ jobs:
                 -project "$PROJECT_NAME" \
                 -scheme "$SCHEME_NAME" \
                 -configuration Release \
+                -destination 'generic/platform=iOS' \
                 -allowProvisioningUpdates \
                 -archivePath "${SCHEME_NAME}.xcarchive" \
                 archive
