@@ -34,9 +34,9 @@ jobs:
 
             # Extract Bundle ID and properly escape it
             if [ ! -z "$WORKSPACE_NAME" ]; then
-              BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed 's/.*= //' | tr -d '[:space:]')
+              BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | awk -F'=' '{print $2}' | xargs)
             else
-              BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed 's/.*= //' | tr -d '[:space:]')
+              BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | awk -F'=' '{print $2}' | xargs)
             fi
 
             echo "BUNDLE_ID=\"$BUNDLE_ID\"" >> $BASH_ENV
