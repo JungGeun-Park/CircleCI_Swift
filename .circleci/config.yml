@@ -5,9 +5,9 @@ jobs:
     macos:
       xcode: 16.1.0
     environment:
-      CERTIFICATE_PASSWORD: "123456"
       TEAM_ID: "22X77ENQ2H"
       APPLE_ID: "puzznic@inka.co.kr"
+      CERTIFICATE_PASSWORD: "123456"
       APP_SPECIFIC_PASSWORD: "qbrz-hmfz-robj-eohm"
       YOUR_PROVISIONING_PROFILE_NAME: "AppSealing Wildcard Distribution Profile"
     steps:

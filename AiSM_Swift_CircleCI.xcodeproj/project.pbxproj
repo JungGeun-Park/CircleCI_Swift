@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2509AB6A2D5B30A600DBC526 /* libStaticAppSec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2509AB692D5B30A600DBC526 /* libStaticAppSec.a */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		2509AB692D5B30A600DBC526 /* libStaticAppSec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStaticAppSec.a; path = AppSealingSDK/Libraries/libStaticAppSec.a; sourceTree = "<group>"; };
 		25ACC01B2D5AC95C0090E13F /* AiSM_Swift_CircleCI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AiSM_Swift_CircleCI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -36,16 +41,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2509AB6A2D5B30A600DBC526 /* libStaticAppSec.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2509AB682D5B30A600DBC526 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2509AB692D5B30A600DBC526 /* libStaticAppSec.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		25ACC0122D5AC95C0090E13F = {
 			isa = PBXGroup;
 			children = (
 				25ACC01D2D5AC95C0090E13F /* AiSM_Swift_CircleCI */,
+				2509AB682D5B30A600DBC526 /* Frameworks */,
 				25ACC01C2D5AC95C0090E13F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +110,7 @@
 				TargetAttributes = {
 					25ACC01A2D5AC95C0090E13F = {
 						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
 					};
 				};
 			};
@@ -143,11 +159,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 22X77ENQ2H;
+				DEVELOPMENT_TEAM = 22X77ENQ2H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AiSM_Swift_CircleCI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -159,12 +175,17 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSealingSDK/Libraries",
+				);
 				MARKETING_VERSION = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inka.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AppSealing Wildcard Distribution Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AiSM_Swift_CircleCI/AiSM_Swift_CircleCI-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -175,11 +196,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 22X77ENQ2H;
+				DEVELOPMENT_TEAM = 22X77ENQ2H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AiSM_Swift_CircleCI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -191,12 +212,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSealingSDK/Libraries",
+				);
 				MARKETING_VERSION = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inka.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AppSealing Wildcard Distribution Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AiSM_Swift_CircleCI/AiSM_Swift_CircleCI-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
