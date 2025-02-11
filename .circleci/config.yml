@@ -7,14 +7,15 @@ jobs:
     steps:
       - checkout
       
-      - run:
-          name: Install jq
-          command: |
-            brew install jq || true
+      # - run:
+      #     name: Install jq
+      #     command: |
+      #       brew install jq || true
             
       - run:
           name: Extract Workspace and Scheme
           command: |
+            xcodebuild -list -json
             WORKSPACE_INFO=$(xcodebuild -list -json | jq -r '.workspace.name')
             if [ ! -z "$WORKSPACE_INFO" ]; then
               echo "export WORKSPACE_NAME=$WORKSPACE_INFO.xcworkspace" >> $BASH_ENV
