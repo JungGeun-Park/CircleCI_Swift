@@ -68,6 +68,25 @@ jobs:
                 archive
             fi
 
+      - run:
+          name: Export IPA
+          command: |
+            xcodebuild \
+              -exportArchive \
+              -archivePath "${SCHEME_NAME}.xcarchive" \
+              -exportOptionsPlist exportOptions.plist \
+              -exportPath ./artifacts
+
+      - run:
+          name: App Store Connect에 업로드
+          command: |
+            xcrun altool --upload-app \
+              --type ios \
+              --file "./artifacts/${SCHEME_NAME}.ipa" \
+              --username "$APPLE_ID" \
+              --password "$APP_SPECIFIC_PASSWORD" \
+              --verbose            
+
 workflows:
   version: 2
   build-test-deploy:
