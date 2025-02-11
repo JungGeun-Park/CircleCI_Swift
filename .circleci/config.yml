@@ -55,6 +55,7 @@ jobs:
                 -workspace "$WORKSPACE_NAME" \
                 -scheme "$SCHEME_NAME" \
                 -configuration Release \
+                -allowProvisioningUpdates \
                 -archivePath "${SCHEME_NAME}.xcarchive" \
                 archive
             else
@@ -62,6 +63,7 @@ jobs:
                 -project "$PROJECT_NAME" \
                 -scheme "$SCHEME_NAME" \
                 -configuration Release \
+                -allowProvisioningUpdates \
                 -archivePath "${SCHEME_NAME}.xcarchive" \
                 archive
             fi
