@@ -32,11 +32,11 @@ jobs:
             echo WORKSPACE_NAME = ${WORKSPACE_NAME}
             echo SCHEME_NAME = ${SCHEME_NAME}
 
-            # Extract Bundle ID correctly
+            # Extract Bundle ID and properly escape it
             if [ ! -z "$WORKSPACE_NAME" ]; then
-              BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | awk '{print $3}')
+              BUNDLE_ID=$(xcodebuild -workspace "$WORKSPACE_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
             else
-              BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | awk '{print $3}')
+              BUNDLE_ID=$(xcodebuild -project "$PROJECT_NAME" -scheme "$SCHEME_NAME" -showBuildSettings | grep "PRODUCT_BUNDLE_IDENTIFIER" | sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER = //p' | tr -d ' ')
             fi
 
             if [ -z "$BUNDLE_ID" ]; then
