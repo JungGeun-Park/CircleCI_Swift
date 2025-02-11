@@ -4,14 +4,11 @@ jobs:
   build-and-upload:
     macos:
       xcode: 16.1.0
+    environment:
+      CERTIFICATE_PASSWORD: ""
     steps:
       - checkout
-      
-      # - run:
-      #     name: Install jq
-      #     command: |
-      #       brew install jq || true
-            
+
       - run:
           name: Extract Workspace and Scheme
           command: |
