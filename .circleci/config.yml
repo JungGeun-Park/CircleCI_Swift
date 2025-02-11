@@ -9,6 +9,7 @@ jobs:
       TEAM_ID: "22X77ENQ2H"
       APPLE_ID: "puzznic@inka.co.kr"
       APP_SPECIFIC_PASSWORD: "qbrz-hmfz-robj-eohm"
+      YOUR_PROVISIONING_PROFILE_NAME: "AppSealing Wildcard Distribution Profile"
     steps:
       - checkout
 
@@ -70,6 +71,11 @@ jobs:
                 <false/>
                 <key>uploadSymbols</key>
                 <true/>
+                <key>provisioningProfiles</key>
+                <dict>
+                    <key>YOUR_BUNDLE_ID</key>
+                    <string>${YOUR_PROVISIONING_PROFILE_NAME}</string>
+                </dict>                
             </dict>
             </plist>
             EOL
