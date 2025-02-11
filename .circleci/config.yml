@@ -99,6 +99,18 @@ jobs:
             cat ./exportOptions.plist
 
       - run:
+          name: 빌드 번호 자동 증가
+          command: |
+            if [ ! -z "$WORKSPACE_NAME" ]; then
+              cd $(dirname "$WORKSPACE_NAME")
+            else
+              cd $(dirname "$PROJECT_NAME")
+            fi
+            
+            # CircleCI의 빌드 번호를 사용하여 앱 빌드 번호 설정
+            xcrun agvtool new-version -all $CIRCLE_BUILD_NUM
+
+      - run:
           name: 빌드
           command: |
             if [ ! -z "$WORKSPACE_NAME" ]; then
