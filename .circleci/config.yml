@@ -146,11 +146,18 @@ jobs:
           name: Generate Hash
           command: |
             # 스크립트에 실행 권한 부여
-            chmod +x ./generate_hash
+            HASH_SCRIPT=$(find . -name "generate_hash" -path "*/AppSealingSDK/*")
+            
+            if [ -z "$HASH_SCRIPT" ]; then
+              echo "❌ ERROR: generate_hash script not found in AppSealingSDK directory"
+              exit 1
+            fi
+            
+            chmod +x "$HASH_SCRIPT"
             
             # IPA 파일 경로를 파라미터로 전달하여 스크립트 실행
-            ./generate_hash "./artifacts/${SCHEME_NAME}.ipa"
-            
+            "$HASH_SCRIPT" "./artifacts/${SCHEME_NAME}.ipa"
+                        
       - run:
           name: App Store Connect에 업로드
           command: |
