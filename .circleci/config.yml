@@ -16,23 +16,19 @@ jobs:
           name: Extract Workspace and Scheme
           command: |
             xcodebuild -list -json
-            
-            # workspace 이름 가져오기
-            WORKSPACE_NAME=$(ls | grep xcworkspace | head -n 1)
-            if [ ! -z "$WORKSPACE_NAME" ]; then
+
+            # Check if xcworkspace exists
+            if ls *.xcworkspace 1> /dev/null 2>&1; then
+              WORKSPACE_NAME=$(ls | grep xcworkspace | head -n 1)
               echo "export WORKSPACE_NAME=$WORKSPACE_NAME" >> $BASH_ENV
-              # workspace의 첫 번째 scheme 가져오기
               SCHEME_NAME=$(xcodebuild -workspace "$WORKSPACE_NAME" -list | grep -A 1 "Schemes:" | tail -n 1 | xargs)
-              echo "export SCHEME_NAME=$SCHEME_NAME" >> $BASH_ENV
             else
               PROJECT_NAME=$(ls | grep xcodeproj | head -n 1)
               echo "export PROJECT_NAME=$PROJECT_NAME" >> $BASH_ENV
-              # project의 첫 번째 scheme 가져오기
               SCHEME_NAME=$(xcodebuild -project "$PROJECT_NAME" -list | grep -A 1 "Schemes:" | tail -n 1 | xargs)
-              echo "export SCHEME_NAME=$SCHEME_NAME" >> $BASH_ENV
             fi
-            source $BASH_ENV
-            
+            echo "export SCHEME_NAME=$SCHEME_NAME" >> $BASH_ENV
+            source $BASH_ENV            
       
       - run:
           name: 키체인 설정
