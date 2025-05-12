@@ -95,7 +95,7 @@ jobs:
                 </dict>                
             </dict>
             </plist>
-            EOL
+EOL
             cat ./exportOptions.plist
 
       - run:
