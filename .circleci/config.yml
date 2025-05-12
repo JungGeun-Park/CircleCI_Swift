@@ -166,7 +166,7 @@ jobs:
               --file "./artifacts/${SCHEME_NAME}.ipa" \
               --username "$APPLE_ID" \
               --password "$APP_SPECIFIC_PASSWORD" \
-              --verbose            
+              --verbose
 
 workflows:
   version: 2
