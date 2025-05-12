@@ -3,11 +3,6 @@ jobs:
     macos:
       xcode: 16.1.0
     environment:
-      ENV_TEAM_ID: $TEAM_ID
-      ENV_APPLE_ID: $APPLE_ID
-      ENV_CERTIFICATE_PASSWORD: $CERTIFICATE_PASSWORD
-      ENV_APP_SPECIFIC_PASSWORD: $APP_SPECIFIC_PASSWORD
-      ENV_YOUR_PROVISIONING_PROFILE_NAME: $YOUR_PROVISIONING_PROFILE_NAME
       KEYCHAIN_NAME: "circle.keychain"
       KEYCHAIN_PASSWORD: "circle"
       PROVISIONING_PROFILE_FILE: "profile.mobileprovision"
@@ -59,7 +54,7 @@ jobs:
       - run:
           name: Install Certificate
           command: |
-            security import ./distribution.p12 -k ~/Library/Keychains/$KEYCHAIN_NAME -P $ENV_CERTIFICATE_PASSWORD -T /usr/bin/codesign
+            security import ./distribution.p12 -k ~/Library/Keychains/$KEYCHAIN_NAME -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
             security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k $KEYCHAIN_PASSWORD $KEYCHAIN_NAME
       
       - run:
@@ -79,7 +74,7 @@ jobs:
                 <key>method</key>
                 <string>app-store</string>
                 <key>teamID</key>
-                <string>${ENV_TEAM_ID}</string>
+                <string>${TEAM_ID}</string>
                 <key>signingStyle</key>
                 <string>manual</string>
                 <key>stripSwiftSymbols</key>
@@ -91,7 +86,7 @@ jobs:
                 <key>provisioningProfiles</key>
                 <dict>
                     <key>${BUNDLE_ID}</key>
-                    <string>${ENV_YOUR_PROVISIONING_PROFILE_NAME}</string>
+                    <string>${YOUR_PROVISIONING_PROFILE_NAME}</string>
                 </dict>                
             </dict>
             </plist>
@@ -160,8 +155,8 @@ jobs:
             xcrun altool --upload-app \
               --type ios \
               --file "./artifacts/${SCHEME_NAME}.ipa" \
-              --username "$ENV_APPLE_ID" \
-              --password "$ENV_APP_SPECIFIC_PASSWORD" \
+              --username "$APPLE_ID" \
+              --password "$APP_SPECIFIC_PASSWORD" \
               --verbose
 
 workflows:
