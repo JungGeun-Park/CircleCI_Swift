@@ -71,7 +71,7 @@ jobs:
       - run:
           name: Generate exportOptions.plist
           command: |
-            cat > ./exportOptions.plist \<< EOL
+            cat > ./exportOptions.plist << 'EOL'
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
             <plist version="1.0">
@@ -95,7 +95,7 @@ jobs:
                 </dict>                
             </dict>
             </plist>
-EOL
+            EOL
             cat ./exportOptions.plist
 
       - run:
@@ -169,3 +169,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-upload
+          filters:
+            branches:
+              only:
+                - main
