@@ -4265,8 +4265,8 @@ begin
 
     force_secure = ENV["FORCE_SECURE_FILESYSTEM"].to_s.upcase == "TRUE"
 
-    puts "=====================" + ci_environment
-    puts "=====================" + force_secure
+    puts "=====================" + ci_environment.to_s
+    puts "=====================" + force_secure.to_s
 
     # 1. FORCE_SECURE_FILESYSTEM has absolute priority in CI
     if ci_environment && force_secure
