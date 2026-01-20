@@ -19,7 +19,7 @@ override func viewDidAppear(_ animated: Bool) {
         print( _appsealing_msg1 + _appSealingDeviceID_auto_generated + "\n\n" );
         #endif    //--------------------------------------- APPSEALING-GetDeviceID [END] : DO NOT REMOVE THIS COMMENT !!!
 
-        #if true //--------------------------------------- APPSEALING-SecurityThreadCheck [BEGIN] : DO NOT REMOVE THIS COMMENT !!!
+        #if false //--------------------------------------- APPSEALING-SecurityThreadCheck [BEGIN] : DO NOT REMOVE THIS COMMENT !!!
         let _instAppSealing_auto_generated2: AppSealingInterface = AppSealingInterface();
         let _appsealing_tamper_auto_generated: Int32 = _instAppSealing_auto_generated2._IsAbnormalEnvironmentDetected();
         if ( _appsealing_tamper_auto_generated > 0 )
