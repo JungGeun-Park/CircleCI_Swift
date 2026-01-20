@@ -144,50 +144,49 @@ jobs:
               -exportPath ./artifacts
 
       - run:
-          name: Generate Hash
+          name: Generate Security Hash
           command: |
-            cd /Users/distiller/project
-            
-            # Set IPA file output path
-            IPA_OUTPUT_PATH="/Users/distiller/project/ios/build/ios/ipa"
-            
-            # Find generate_hash script in AppSealingSDK directory
-            HASH_SCRIPT=$(find . -type f -name "generate_hash" -path "*/AppSealingSDK/*" 2>/dev/null)
-            
+            echo "🔍 Searching generate_hash script..."
+
+            HASH_SCRIPT=$(find . -type f -name "generate_hash" | head -n 1)
+
             if [ -z "$HASH_SCRIPT" ]; then
-              echo "❌ ERROR: generate_hash script not found in AppSealingSDK directory"
+              echo "❌ ERROR: generate_hash script not found"
               exit 1
             fi
-            
-            echo "✅ Found hash script: ${HASH_SCRIPT}"
+
             chmod +x "$HASH_SCRIPT"
-            
-            # Find IPA file
-            IPA_FILE=$(find "${IPA_OUTPUT_PATH}" -type f -name "*.ipa" 2>/dev/null)
-            if [ -z "${IPA_FILE}" ]; then
-              echo "❌ ERROR: No IPA file found in ${IPA_OUTPUT_PATH}"
+
+            ABS_IPA_PATH="$(pwd)/artifacts/${SCHEME_NAME}.ipa"
+
+            if [ ! -f "$ABS_IPA_PATH" ]; then
+              echo "❌ ERROR: IPA not found at $ABS_IPA_PATH"
               exit 1
             fi
-            echo "✅ Found IPA file: ${IPA_FILE}"
-            
-            # Run the hash script
-            "$HASH_SCRIPT" "${IPA_FILE}"
+
+            echo "✅ Using generate_hash: $HASH_SCRIPT"
+            echo "✅ Target IPA (absolute): $ABS_IPA_PATH"
+
+            "$HASH_SCRIPT" "$ABS_IPA_PATH"
 
       - run:
           name: Upload to App Store Connect
           command: |
-            cd /Users/distiller/project/ios
-            IPA_FILE=$(find build/ios/ipa -name "*.ipa" -type f)
+            ABS_IPA_PATH="$(pwd)/artifacts/${SCHEME_NAME}.ipa"
+
+            if [ ! -f "$ABS_IPA_PATH" ]; then
+              echo "❌ ERROR: IPA not found at $ABS_IPA_PATH"
+              exit 1
+            fi
+
+            echo "🚀 Uploading IPA: $ABS_IPA_PATH"
+
             xcrun altool --upload-app \
               --type ios \
-              --file "${IPA_FILE}" \
+              --file "$ABS_IPA_PATH" \
               --username "$APPLE_ID" \
               --password "$APP_SPECIFIC_PASSWORD" \
               --verbose
-
-      - store_artifacts:
-          path: /Users/distiller/project/ios/build/ios/ipa
-
 
 workflows:
   version: 2
