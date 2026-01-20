@@ -4265,15 +4265,12 @@ begin
 
     force_secure = ENV["FORCE_SECURE_FILESYSTEM"].to_s.upcase == "TRUE"
 
-    puts "=====================" + ci_environment.to_s
-    puts "=====================" + force_secure.to_s
-
     # 1. FORCE_SECURE_FILESYSTEM has absolute priority in CI
     if ci_environment && force_secure
         $securefile = "enable"
 
         puts "\n[STEP #{$current_step += 1}] Secure Filesystem forcibly enabled (FORCE_SECURE_FILESYSTEM=TRUE).".bold.yellow
-        puts "    [INFO] CI environment detected. SwiftSyntax verification skipped.".yellow
+        puts "    [INFO] CI environment detected. SwiftSyntax verification skipped. Force applying Secure Storage feature".yellow
 
     # 2. Normal securefile enable flow
     elsif defined?($securefile) && $securefile == "enable"
