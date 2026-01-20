@@ -4265,6 +4265,9 @@ begin
 
     force_secure = ENV["FORCE_SECURE_FILESYSTEM"].to_s.upcase == "TRUE"
 
+    puts "=====================" + ci_environment
+    puts "=====================" + force_secure
+
     # 1. FORCE_SECURE_FILESYSTEM has absolute priority in CI
     if ci_environment && force_secure
         $securefile = "enable"
